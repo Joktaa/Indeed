@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OFFRES{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for offre in offres %}
+                <div class="col-md-3">
+                    <div class="card" style="width: 18rem;">
+                        <img src="..." class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h2 class="card-title">{{ offre.Title }}</h2>
+                            <h3 class="card-text">{{ offre.Ville }}</h3>
+                            <h4 class="card-text">{{ offre.Contrat.Type }} / Temps {{ offre.TypeContrat.Type }}</h4>
+                            <a href="/offres/{{ offre.id }}" class="btn btn-primary">Voir l'offre</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

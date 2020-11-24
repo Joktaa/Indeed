@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Article
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>{{offre.Title}}</h1>
+        <p>Crée le {{ offre.DateCreation | date("d/m/Y") }}</p>
+        {% if offre.DateMAJ is defined %}
+            <p>Mis à jour le {{ offre.DateMAJ | date("d/m/Y") }}</p>
+        {% endif %}
+        <h2>{{ offre.Description }}</h2>
+        <h3>{{ offre.Contrat.Type }} / Temps {{ offre.TypeContrat.Type }}</h3>
+        <h4>{{ offre.Adresse }} {{ offre.CodePostal }} {{ offre.Ville }}</h4>
+        {% if offre.DateFin is not null %}
+            <h5>Fin le {{ offre.DateFin | date("d/m/Y") }}</h5>
+        {% endif %}
+        <a href="#" class="btn btn-primary">Postuler</a>
+    </div>
+{% endblock %}
