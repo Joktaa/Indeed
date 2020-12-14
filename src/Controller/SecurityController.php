@@ -9,13 +9,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/register", name=".register")
+     * @Route("/register", name="register")
      */
-    public function register(EntityManagerInterface $manager, Request $request): Response
+    public function register(EntityManagerInterface $manager, Request $request, UserPasswordEncoderInterface $Encoder): Response
     {
         $user = new User();
 
@@ -31,6 +32,7 @@ class SecurityController extends AbstractController
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             $user->setRoles(["ROLE_USER"]);
+            $user->setPassword($Encoder->encodePassword($user, $user->getPassword()));
             $manager->persist($user);
             $manager->flush();
         }
@@ -41,7 +43,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/login", name=".login")
+     * @Route("/login", name="login")
      */
     public function login(): Response
     {
@@ -49,7 +51,7 @@ class SecurityController extends AbstractController
     }
     
     /**
-     * @Route("/annonces", name=".annonces")
+     * @Route("/annonces", name="annonces")
      */
     public function annonces(): Response
     {

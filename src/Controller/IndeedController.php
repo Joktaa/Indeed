@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class IndeedController extends AbstractController
 {
     /**
-     * @Route("/", name=".list")
+     * @Route("/", name="list")
      */
     public function index(OffreRepository $ripo): Response
     {
